@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "PCA Compression Homework",
+    "section": "",
+    "text": "library(readr)\n## Read the CSV file into a data frame\nX &lt;- read_csv('image1.csv')\n## Convert data frame into a matrix\nX &lt;- data.matrix(X)\n\n\n\n\n\ncompress_image &lt;- function(X, k) {\n  # X: n x p numeric matrix (the image)\n  # k: desired rank of the approximation\n  \n  V &lt;- t(X) %*% X\n  \n  # Eigendecomposition\n  eig &lt;- eigen(V)\n  U &lt;- eig$vectors        # p x p\n  \n  # Principal component scores\n  Z &lt;- X %*% U             # n x p\n  \n  # Rank-k approximation\n  X_k &lt;- Z[, 1:k, drop = FALSE] %*% t(U[, 1:k, drop = FALSE])\n  \n  # Frobenius norm\n  err &lt;- norm(X - X_k, type = \"F\")\n  \n  list(approx = X_k, error = err, U = U, Z = Z)\n}\n\n\n\n\n\npar(mfrow = c(3, 4))\n\n# Original\nimage(\n  t(X[nrow(X):1, ]),\n  axes = FALSE,\n  col = gray.colors(256),\n  useRaster = TRUE,\n  asp = 1\n)\ntitle(\"Original\")\n\n# k = 1,...,10\nfor (k in 1:10) {\n  result &lt;- compress_image(X, k)\n  X_k &lt;- result$approx\n  \n  image(\n    t(X_k[nrow(X_k):1, ]),\n    axes = FALSE,\n    col = gray.colors(256),\n    useRaster = TRUE,\n    asp = 1\n  )\n  title(paste(\"k =\", k))\n}\n\n\n\n\n\n\n\n\n\n\n\n\np &lt;- ncol(X)\n\nerrors &lt;- numeric(p)\n\nfor (k in 1:p) {\n  result &lt;- compress_image(X, k)\n  errors[k] &lt;- result$error\n}\n\nplot(\n  1:p,\n  errors,\n  type = \"l\",\n  xlab = \"k\",\n  ylab = \"Frobenius Norm Error\",\n  main = \"Approximation Error vs. k\"\n)\n\n\n\n\n\n\n\n\n\nresult = compress_image(X, 1)\n\nu1 = result$U[, 1]\nz1 = result$Z[ , 1]\n\npar(mfrow = c(1, 2))\n\nplot(\n  u1,\n  type = \"l\",\n  xlab = \"Column Index (Width of Image)\",\n  ylab = \"Eigenvector Value\",\n  main = \"First Eigenvector\"\n)\n\nplot(\n  z1,\n  type = 'l',\n  xlab = \"Row Index (Height of Image)\",\n  ylab = \"PC Score\",\n  main = \"First PC Score\"\n)\n\n\n\n\n\n\n\n\n*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.*\n\n\n\nI think k = 6 provides a sufficiently good approximation of the original image. At k=6, the important features of the image are clearly visible, and increasing k further provides relatively little visual improvement."
+  },
+  {
+    "objectID": "index.html#create-a-matrix-from-the-image",
+    "href": "index.html#create-a-matrix-from-the-image",
+    "title": "PCA Compression Homework",
+    "section": "",
+    "text": "library(readr)\n## Read the CSV file into a data frame\nX &lt;- read_csv('image1.csv')\n## Convert data frame into a matrix\nX &lt;- data.matrix(X)"
+  },
+  {
+    "objectID": "index.html#function-to-compress-an-image-using-pca",
+    "href": "index.html#function-to-compress-an-image-using-pca",
+    "title": "PCA Compression Homework",
+    "section": "",
+    "text": "compress_image &lt;- function(X, k) {\n  # X: n x p numeric matrix (the image)\n  # k: desired rank of the approximation\n  \n  V &lt;- t(X) %*% X\n  \n  # Eigendecomposition\n  eig &lt;- eigen(V)\n  U &lt;- eig$vectors        # p x p\n  \n  # Principal component scores\n  Z &lt;- X %*% U             # n x p\n  \n  # Rank-k approximation\n  X_k &lt;- Z[, 1:k, drop = FALSE] %*% t(U[, 1:k, drop = FALSE])\n  \n  # Frobenius norm\n  err &lt;- norm(X - X_k, type = \"F\")\n  \n  list(approx = X_k, error = err, U = U, Z = Z)\n}"
+  },
+  {
+    "objectID": "index.html#plot-of-original-image-vs.-first-10-pca-approximations",
+    "href": "index.html#plot-of-original-image-vs.-first-10-pca-approximations",
+    "title": "PCA Compression Homework",
+    "section": "",
+    "text": "par(mfrow = c(3, 4))\n\n# Original\nimage(\n  t(X[nrow(X):1, ]),\n  axes = FALSE,\n  col = gray.colors(256),\n  useRaster = TRUE,\n  asp = 1\n)\ntitle(\"Original\")\n\n# k = 1,...,10\nfor (k in 1:10) {\n  result &lt;- compress_image(X, k)\n  X_k &lt;- result$approx\n  \n  image(\n    t(X_k[nrow(X_k):1, ]),\n    axes = FALSE,\n    col = gray.colors(256),\n    useRaster = TRUE,\n    asp = 1\n  )\n  title(paste(\"k =\", k))\n}"
+  },
+  {
+    "objectID": "index.html#plot-approximation-error-vs.-k-for-all-possible-k",
+    "href": "index.html#plot-approximation-error-vs.-k-for-all-possible-k",
+    "title": "PCA Compression Homework",
+    "section": "",
+    "text": "p &lt;- ncol(X)\n\nerrors &lt;- numeric(p)\n\nfor (k in 1:p) {\n  result &lt;- compress_image(X, k)\n  errors[k] &lt;- result$error\n}\n\nplot(\n  1:p,\n  errors,\n  type = \"l\",\n  xlab = \"k\",\n  ylab = \"Frobenius Norm Error\",\n  main = \"Approximation Error vs. k\"\n)\n\n\n\n\n\n\n\n\n\nresult = compress_image(X, 1)\n\nu1 = result$U[, 1]\nz1 = result$Z[ , 1]\n\npar(mfrow = c(1, 2))\n\nplot(\n  u1,\n  type = \"l\",\n  xlab = \"Column Index (Width of Image)\",\n  ylab = \"Eigenvector Value\",\n  main = \"First Eigenvector\"\n)\n\nplot(\n  z1,\n  type = 'l',\n  xlab = \"Row Index (Height of Image)\",\n  ylab = \"PC Score\",\n  main = \"First PC Score\"\n)\n\n\n\n\n\n\n\n\n*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.*"
+  },
+  {
+    "objectID": "index.html#interpretation",
+    "href": "index.html#interpretation",
+    "title": "PCA Compression Homework",
+    "section": "",
+    "text": "I think k = 6 provides a sufficiently good approximation of the original image. At k=6, the important features of the image are clearly visible, and increasing k further provides relatively little visual improvement."
+  },
+  {
+    "objectID": "index.html#reading-in-image-image-2",
+    "href": "index.html#reading-in-image-image-2",
+    "title": "PCA Compression Homework",
+    "section": "Reading In Image (Image 2)",
+    "text": "Reading In Image (Image 2)\n\n## Read the CSV file into a data frame\nX &lt;- read_csv('image2.csv')\n## Convert data frame into a matrix\nX &lt;- data.matrix(X)"
+  },
+  {
+    "objectID": "index.html#plot-of-original-image-vs.-first-10-pca-approximations-image-2",
+    "href": "index.html#plot-of-original-image-vs.-first-10-pca-approximations-image-2",
+    "title": "PCA Compression Homework",
+    "section": "Plot Of Original Image vs. First 10 PCA Approximations (Image 2)",
+    "text": "Plot Of Original Image vs. First 10 PCA Approximations (Image 2)\n\npar(mfrow = c(3, 4))\n\n# Original\nimage(\n  t(X[nrow(X):1, ]),\n  axes = FALSE,\n  col = gray.colors(256),\n  useRaster = TRUE,\n  asp = 1\n)\ntitle(\"Original\")\n\n# k = 1,...,10\nfor (k in 1:10) {\n  result &lt;- compress_image(X, k)\n  X_k &lt;- result$approx\n  \n  image(\n    t(X_k[nrow(X_k):1, ]),\n    axes = FALSE,\n    col = gray.colors(256),\n    useRaster = TRUE,\n    asp = 1\n  )\n  title(paste(\"k =\", k))\n}"
+  },
+  {
+    "objectID": "index.html#plot-approximation-error-vs.-k-for-all-possible-k-image-2",
+    "href": "index.html#plot-approximation-error-vs.-k-for-all-possible-k-image-2",
+    "title": "PCA Compression Homework",
+    "section": "Plot Approximation Error vs. k For All Possible k (Image 2)",
+    "text": "Plot Approximation Error vs. k For All Possible k (Image 2)\n\np &lt;- ncol(X)\n\nerrors &lt;- numeric(p)\n\nfor (k in 1:p) {\n  result &lt;- compress_image(X, k)\n  errors[k] &lt;- result$error\n}\n\nplot(\n  1:p,\n  errors,\n  type = \"l\",\n  xlab = \"k\",\n  ylab = \"Frobenius Norm Error\",\n  main = \"Approximation Error vs. k\"\n)"
+  },
+  {
+    "objectID": "index.html#first-eigenvector-and-first-pc-score-image-2",
+    "href": "index.html#first-eigenvector-and-first-pc-score-image-2",
+    "title": "PCA Compression Homework",
+    "section": "First Eigenvector and First PC Score (Image 2)",
+    "text": "First Eigenvector and First PC Score (Image 2)\n\nresult = compress_image(X, 1)\n\nu1 = result$U[, 1]\nz1 = result$Z[ , 1]\n\npar(mfrow = c(1, 2))\n\nplot(\n  u1,\n  type = \"l\",\n  xlab = \"Column Index (Width of Image)\",\n  ylab = \"Eigenvector Value\",\n  main = \"First Eigenvector\"\n)\n\nplot(\n  z1,\n  type = 'l',\n  xlab = \"Row Index (Height of Image)\",\n  ylab = \"PC Score\",\n  main = \"First PC Score\"\n)\n\n\n\n\n\n\n\n\n*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.*"
+  },
+  {
+    "objectID": "index.html#interpretation-1",
+    "href": "index.html#interpretation-1",
+    "title": "PCA Compression Homework",
+    "section": "Interpretation",
+    "text": "Interpretation\nI think k=5 provides a sufficiently good approximation of the original image. At k=5, the important features of the image are clearly visible, and increasing k further provides relatively little visual improvement."
+  },
+  {
+    "objectID": "index.html#reading-in-image-image-3",
+    "href": "index.html#reading-in-image-image-3",
+    "title": "PCA Compression Homework",
+    "section": "Reading In Image (Image 3)",
+    "text": "Reading In Image (Image 3)\n\n## Read the CSV file into a data frame\nX &lt;- read_csv('image3.csv')\n## Convert data frame into a matrix\nX &lt;- data.matrix(X)"
+  },
+  {
+    "objectID": "index.html#plot-of-original-image-vs.-first-10-pca-approximations-image-3",
+    "href": "index.html#plot-of-original-image-vs.-first-10-pca-approximations-image-3",
+    "title": "PCA Compression Homework",
+    "section": "Plot Of Original Image vs. First 10 PCA Approximations (Image 3)",
+    "text": "Plot Of Original Image vs. First 10 PCA Approximations (Image 3)\n\npar(mfrow = c(3, 4))\n\n# Original\nimage(\n  t(X[nrow(X):1, ]),\n  axes = FALSE,\n  col = gray.colors(256),\n  useRaster = TRUE,\n  asp = 1\n)\ntitle(\"Original\")\n\n# k = 1,...,10\nfor (k in 1:10) {\n  result &lt;- compress_image(X, k)\n  X_k &lt;- result$approx\n  \n  image(\n    t(X_k[nrow(X_k):1, ]),\n    axes = FALSE,\n    col = gray.colors(256),\n    useRaster = TRUE,\n    asp = 1\n  )\n  title(paste(\"k =\", k))\n}"
+  },
+  {
+    "objectID": "index.html#plot-approximation-error-vs.-k-for-all-possible-k-image-3",
+    "href": "index.html#plot-approximation-error-vs.-k-for-all-possible-k-image-3",
+    "title": "PCA Compression Homework",
+    "section": "Plot Approximation Error vs. k For All Possible k (Image 3)",
+    "text": "Plot Approximation Error vs. k For All Possible k (Image 3)\n\np &lt;- ncol(X)\n\nerrors &lt;- numeric(p)\n\nfor (k in 1:p) {\n  result &lt;- compress_image(X, k)\n  errors[k] &lt;- result$error\n}\n\nplot(\n  1:p,\n  errors,\n  type = \"l\",\n  xlab = \"k\",\n  ylab = \"Frobenius Norm Error\",\n  main = \"Approximation Error vs. k\"\n)"
+  },
+  {
+    "objectID": "index.html#first-eigenvector-and-first-pc-score-image-3",
+    "href": "index.html#first-eigenvector-and-first-pc-score-image-3",
+    "title": "PCA Compression Homework",
+    "section": "First Eigenvector and First PC Score (Image 3)",
+    "text": "First Eigenvector and First PC Score (Image 3)\n\nresult = compress_image(X, 1)\n\nu1 = result$U[, 1]\nz1 = result$Z[ , 1]\n\npar(mfrow = c(1, 2))\n\nplot(\n  u1,\n  type = \"l\",\n  xlab = \"Column Index (Width of Image)\",\n  ylab = \"Eigenvector Value\",\n  main = \"First Eigenvector\"\n)\n\nplot(\n  z1,\n  type = 'l',\n  xlab = \"Row Index (Height of Image)\",\n  ylab = \"PC Score\",\n  main = \"First PC Score\"\n)\n\n\n\n\n\n\n\n\nThe first eigenvector represents the dominant pattern across the width of the image. The weights vary substantially across the columns, indicating that different horizontal positions contribute differently to the first principal component. The first PC scores show how strongly this pattern is expressed at different rows, or vertical positions, in the image. The large changes in the PC scores indicate regions of the image where the dominant pattern changes substantially. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image."
+  },
+  {
+    "objectID": "index.html#interpretation-2",
+    "href": "index.html#interpretation-2",
+    "title": "PCA Compression Homework",
+    "section": "Interpretation",
+    "text": "Interpretation\nI think k=30 provides a sufficiently good approximation of the original image. At k=30, the important features of the image are clearly visible, and increasing k further provides relatively little additional reduction in approximation error."
+  },
+  {
+    "objectID": "index.html#reading-in-image-image-4",
+    "href": "index.html#reading-in-image-image-4",
+    "title": "PCA Compression Homework",
+    "section": "Reading In Image (Image 4)",
+    "text": "Reading In Image (Image 4)\n\n## Read the CSV file into a data frame\nX &lt;- read_csv('image4.csv')\n## Convert data frame into a matrix\nX &lt;- data.matrix(X)"
+  },
+  {
+    "objectID": "index.html#plot-of-original-image-vs.-first-10-pca-approximations-image-4",
+    "href": "index.html#plot-of-original-image-vs.-first-10-pca-approximations-image-4",
+    "title": "PCA Compression Homework",
+    "section": "Plot Of Original Image vs. First 10 PCA Approximations (Image 4)",
+    "text": "Plot Of Original Image vs. First 10 PCA Approximations (Image 4)\n\npar(mfrow = c(3, 4))\n\n# Original\nimage(\n  t(X[nrow(X):1, ]),\n  axes = FALSE,\n  col = gray.colors(256),\n  useRaster = TRUE,\n  asp = 1\n)\ntitle(\"Original\")\n\n# k = 1,...,10\nfor (k in 1:10) {\n  result &lt;- compress_image(X, k)\n  X_k &lt;- result$approx\n  \n  image(\n    t(X_k[nrow(X_k):1, ]),\n    axes = FALSE,\n    col = gray.colors(256),\n    useRaster = TRUE,\n    asp = 1\n  )\n  title(paste(\"k =\", k))\n}"
+  },
+  {
+    "objectID": "index.html#plot-approximation-error-vs.-k-for-all-possible-k-image-4",
+    "href": "index.html#plot-approximation-error-vs.-k-for-all-possible-k-image-4",
+    "title": "PCA Compression Homework",
+    "section": "Plot Approximation Error vs. k For All Possible k (Image 4)",
+    "text": "Plot Approximation Error vs. k For All Possible k (Image 4)\n\np &lt;- ncol(X)\n\nerrors &lt;- numeric(p)\n\nfor (k in 1:p) {\n  result &lt;- compress_image(X, k)\n  errors[k] &lt;- result$error\n}\n\nplot(\n  1:p,\n  errors,\n  type = \"l\",\n  xlab = \"k\",\n  ylab = \"Frobenius Norm Error\",\n  main = \"Approximation Error vs. k\"\n)"
+  },
+  {
+    "objectID": "index.html#first-eigenvector-and-first-pc-score-image-4",
+    "href": "index.html#first-eigenvector-and-first-pc-score-image-4",
+    "title": "PCA Compression Homework",
+    "section": "First Eigenvector and First PC Score (Image 4)",
+    "text": "First Eigenvector and First PC Score (Image 4)\n\nresult = compress_image(X, 1)\n\nu1 = result$U[, 1]\nz1 = result$Z[ , 1]\n\npar(mfrow = c(1, 2))\n\nplot(\n  u1,\n  type = \"l\",\n  xlab = \"Column Index (Width of Image)\",\n  ylab = \"Eigenvector Value\",\n  main = \"First Eigenvector\"\n)\n\nplot(\n  z1,\n  type = 'l',\n  xlab = \"Row Index (Height of Image)\",\n  ylab = \"PC Score\",\n  main = \"First PC Score\"\n)\n\n\n\n\n\n\n\n\nThe first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image."
+  },
+  {
+    "objectID": "index.html#interpretation-3",
+    "href": "index.html#interpretation-3",
+    "title": "PCA Compression Homework",
+    "section": "Interpretation",
+    "text": "Interpretation\nI think k=25 provides a sufficiently good approximation of the original image. The error plot begins to level off around this k-value, indicating that increasing k beyond this point produces progressively smaller reductions in approximation error."
+  }
+]

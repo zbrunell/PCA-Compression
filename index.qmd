@@ -1,0 +1,422 @@
+---
+title: "PCA Compression Homework"
+---
+
+# Image 1
+
+## Create A Matrix From The Image
+
+```{r message= FALSE}
+library(readr)
+## Read the CSV file into a data frame
+X <- read_csv('image1.csv')
+## Convert data frame into a matrix
+X <- data.matrix(X)
+```
+
+## Function to Compress An Image Using PCA
+
+```{r}
+compress_image <- function(X, k) {
+  # X: n x p numeric matrix (the image)
+  # k: desired rank of the approximation
+  
+  V <- t(X) %*% X
+  
+  # Eigendecomposition
+  eig <- eigen(V)
+  U <- eig$vectors        # p x p
+  
+  # Principal component scores
+  Z <- X %*% U             # n x p
+  
+  # Rank-k approximation
+  X_k <- Z[, 1:k, drop = FALSE] %*% t(U[, 1:k, drop = FALSE])
+  
+  # Frobenius norm
+  err <- norm(X - X_k, type = "F")
+  
+  list(approx = X_k, error = err, U = U, Z = Z)
+}
+```
+
+## Plot Of Original Image vs. First 10 PCA Approximations
+
+```{r}
+par(mfrow = c(3, 4))
+
+# Original
+image(
+  t(X[nrow(X):1, ]),
+  axes = FALSE,
+  col = gray.colors(256),
+  useRaster = TRUE,
+  asp = 1
+)
+title("Original")
+
+# k = 1,...,10
+for (k in 1:10) {
+  result <- compress_image(X, k)
+  X_k <- result$approx
+  
+  image(
+    t(X_k[nrow(X_k):1, ]),
+    axes = FALSE,
+    col = gray.colors(256),
+    useRaster = TRUE,
+    asp = 1
+  )
+  title(paste("k =", k))
+}
+```
+
+## Plot Approximation Error vs. k For All Possible k
+
+```{r}
+p <- ncol(X)
+
+errors <- numeric(p)
+
+for (k in 1:p) {
+  result <- compress_image(X, k)
+  errors[k] <- result$error
+}
+
+plot(
+  1:p,
+  errors,
+  type = "l",
+  xlab = "k",
+  ylab = "Frobenius Norm Error",
+  main = "Approximation Error vs. k"
+)
+
+```
+
+```{r}
+result = compress_image(X, 1)
+
+u1 = result$U[, 1]
+z1 = result$Z[ , 1]
+
+par(mfrow = c(1, 2))
+
+plot(
+  u1,
+  type = "l",
+  xlab = "Column Index (Width of Image)",
+  ylab = "Eigenvector Value",
+  main = "First Eigenvector"
+)
+
+plot(
+  z1,
+  type = 'l',
+  xlab = "Row Index (Height of Image)",
+  ylab = "PC Score",
+  main = "First PC Score"
+)
+
+
+```
+
+\*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.\*
+
+## Interpretation
+
+I think k = 6 provides a sufficiently good approximation of the original image. At k=6, the important features of the image are clearly visible, and increasing k further provides relatively little visual improvement.
+
+# Image 2
+
+## Reading In Image (Image 2)
+
+```{r message= FALSE}
+## Read the CSV file into a data frame
+X <- read_csv('image2.csv')
+## Convert data frame into a matrix
+X <- data.matrix(X)
+```
+
+## Plot Of Original Image vs. First 10 PCA Approximations (Image 2)
+
+```{r}
+par(mfrow = c(3, 4))
+
+# Original
+image(
+  t(X[nrow(X):1, ]),
+  axes = FALSE,
+  col = gray.colors(256),
+  useRaster = TRUE,
+  asp = 1
+)
+title("Original")
+
+# k = 1,...,10
+for (k in 1:10) {
+  result <- compress_image(X, k)
+  X_k <- result$approx
+  
+  image(
+    t(X_k[nrow(X_k):1, ]),
+    axes = FALSE,
+    col = gray.colors(256),
+    useRaster = TRUE,
+    asp = 1
+  )
+  title(paste("k =", k))
+}
+```
+
+## Plot Approximation Error vs. k For All Possible k (Image 2)
+
+```{r}
+p <- ncol(X)
+
+errors <- numeric(p)
+
+for (k in 1:p) {
+  result <- compress_image(X, k)
+  errors[k] <- result$error
+}
+
+plot(
+  1:p,
+  errors,
+  type = "l",
+  xlab = "k",
+  ylab = "Frobenius Norm Error",
+  main = "Approximation Error vs. k"
+)
+
+```
+
+## First Eigenvector and First PC Score (Image 2)
+
+```{r}
+result = compress_image(X, 1)
+
+u1 = result$U[, 1]
+z1 = result$Z[ , 1]
+
+par(mfrow = c(1, 2))
+
+plot(
+  u1,
+  type = "l",
+  xlab = "Column Index (Width of Image)",
+  ylab = "Eigenvector Value",
+  main = "First Eigenvector"
+)
+
+plot(
+  z1,
+  type = 'l',
+  xlab = "Row Index (Height of Image)",
+  ylab = "PC Score",
+  main = "First PC Score"
+)
+```
+
+\*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.\*
+
+## Interpretation
+
+*I think* k=5 *provides a sufficiently good approximation of the original image. At* k=5*, the important features of the image are clearly visible, and increasing* k *further provides relatively little visual improvement.*
+
+# Image 3
+
+## Reading In Image (Image 3)
+
+```{r message= FALSE}
+## Read the CSV file into a data frame
+X <- read_csv('image3.csv')
+## Convert data frame into a matrix
+X <- data.matrix(X)
+```
+
+## Plot Of Original Image vs. First 10 PCA Approximations (Image 3)
+
+```{r}
+par(mfrow = c(3, 4))
+
+# Original
+image(
+  t(X[nrow(X):1, ]),
+  axes = FALSE,
+  col = gray.colors(256),
+  useRaster = TRUE,
+  asp = 1
+)
+title("Original")
+
+# k = 1,...,10
+for (k in 1:10) {
+  result <- compress_image(X, k)
+  X_k <- result$approx
+  
+  image(
+    t(X_k[nrow(X_k):1, ]),
+    axes = FALSE,
+    col = gray.colors(256),
+    useRaster = TRUE,
+    asp = 1
+  )
+  title(paste("k =", k))
+}
+```
+
+## Plot Approximation Error vs. k For All Possible k (Image 3)
+
+```{r}
+p <- ncol(X)
+
+errors <- numeric(p)
+
+for (k in 1:p) {
+  result <- compress_image(X, k)
+  errors[k] <- result$error
+}
+
+plot(
+  1:p,
+  errors,
+  type = "l",
+  xlab = "k",
+  ylab = "Frobenius Norm Error",
+  main = "Approximation Error vs. k"
+)
+
+```
+
+## First Eigenvector and First PC Score (Image 3)
+
+```{r}
+result = compress_image(X, 1)
+
+u1 = result$U[, 1]
+z1 = result$Z[ , 1]
+
+par(mfrow = c(1, 2))
+
+plot(
+  u1,
+  type = "l",
+  xlab = "Column Index (Width of Image)",
+  ylab = "Eigenvector Value",
+  main = "First Eigenvector"
+)
+
+plot(
+  z1,
+  type = 'l',
+  xlab = "Row Index (Height of Image)",
+  ylab = "PC Score",
+  main = "First PC Score"
+)
+```
+
+*The first eigenvector represents the dominant pattern across the width of the image. The weights vary substantially across the columns, indicating that different horizontal positions contribute differently to the first principal component. The first PC scores show how strongly this pattern is expressed at different rows, or vertical positions, in the image. The large changes in the PC scores indicate regions of the image where the dominant pattern changes substantially. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.*
+
+## Interpretation
+
+*I think k=30 provides a sufficiently good approximation of the original image. At k=30, the important features of the image are clearly visible, and increasing k further provides relatively little additional reduction in approximation error.*
+
+# Image 4
+
+## Reading In Image (Image 4)
+
+```{r message= FALSE}
+## Read the CSV file into a data frame
+X <- read_csv('image4.csv')
+## Convert data frame into a matrix
+X <- data.matrix(X)
+```
+
+## Plot Of Original Image vs. First 10 PCA Approximations (Image 4)
+
+```{r}
+par(mfrow = c(3, 4))
+
+# Original
+image(
+  t(X[nrow(X):1, ]),
+  axes = FALSE,
+  col = gray.colors(256),
+  useRaster = TRUE,
+  asp = 1
+)
+title("Original")
+
+# k = 1,...,10
+for (k in 1:10) {
+  result <- compress_image(X, k)
+  X_k <- result$approx
+  
+  image(
+    t(X_k[nrow(X_k):1, ]),
+    axes = FALSE,
+    col = gray.colors(256),
+    useRaster = TRUE,
+    asp = 1
+  )
+  title(paste("k =", k))
+}
+```
+
+## Plot Approximation Error vs. k For All Possible k (Image 4)
+
+```{r}
+p <- ncol(X)
+
+errors <- numeric(p)
+
+for (k in 1:p) {
+  result <- compress_image(X, k)
+  errors[k] <- result$error
+}
+
+plot(
+  1:p,
+  errors,
+  type = "l",
+  xlab = "k",
+  ylab = "Frobenius Norm Error",
+  main = "Approximation Error vs. k"
+)
+
+```
+
+## First Eigenvector and First PC Score (Image 4)
+
+```{r}
+result = compress_image(X, 1)
+
+u1 = result$U[, 1]
+z1 = result$Z[ , 1]
+
+par(mfrow = c(1, 2))
+
+plot(
+  u1,
+  type = "l",
+  xlab = "Column Index (Width of Image)",
+  ylab = "Eigenvector Value",
+  main = "First Eigenvector"
+)
+
+plot(
+  z1,
+  type = 'l',
+  xlab = "Row Index (Height of Image)",
+  ylab = "PC Score",
+  main = "First PC Score"
+)
+```
+
+*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.*
+
+## Interpretation
+
+*I think k=25 provides a sufficiently good approximation of the original image. The error plot begins to level off around this k-value, indicating that increasing k beyond this point produces progressively smaller reductions in approximation error.*
