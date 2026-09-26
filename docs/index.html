@@ -157,15 +157,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#function-to-compress-an-image-using-pca" id="toc-function-to-compress-an-image-using-pca" class="nav-link" data-scroll-target="#function-to-compress-an-image-using-pca">Function to Compress An Image Using PCA</a></li>
   <li><a href="#plot-of-original-image-vs.-first-10-pca-approximations" id="toc-plot-of-original-image-vs.-first-10-pca-approximations" class="nav-link" data-scroll-target="#plot-of-original-image-vs.-first-10-pca-approximations">Plot Of Original Image vs.&nbsp;First 10 PCA Approximations</a></li>
   <li><a href="#plot-approximation-error-vs.-k-for-all-possible-k" id="toc-plot-approximation-error-vs.-k-for-all-possible-k" class="nav-link" data-scroll-target="#plot-approximation-error-vs.-k-for-all-possible-k">Plot Approximation Error vs.&nbsp;k For All Possible k</a></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a>
+  <ul class="collapse">
+  <li><a href="#best-value-of-k" id="toc-best-value-of-k" class="nav-link" data-scroll-target="#best-value-of-k">Best Value of K</a></li>
   </ul></li>
-  <li><a href="#image-2" id="toc-image-2" class="nav-link" data-scroll-target="#image-2">Image 2</a>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a>
   <ul class="collapse">
   <li><a href="#reading-in-image-image-2" id="toc-reading-in-image-image-2" class="nav-link" data-scroll-target="#reading-in-image-image-2">Reading In Image (Image 2)</a></li>
   <li><a href="#plot-of-original-image-vs.-first-10-pca-approximations-image-2" id="toc-plot-of-original-image-vs.-first-10-pca-approximations-image-2" class="nav-link" data-scroll-target="#plot-of-original-image-vs.-first-10-pca-approximations-image-2">Plot Of Original Image vs.&nbsp;First 10 PCA Approximations (Image 2)</a></li>
   <li><a href="#plot-approximation-error-vs.-k-for-all-possible-k-image-2" id="toc-plot-approximation-error-vs.-k-for-all-possible-k-image-2" class="nav-link" data-scroll-target="#plot-approximation-error-vs.-k-for-all-possible-k-image-2">Plot Approximation Error vs.&nbsp;k For All Possible k (Image 2)</a></li>
   <li><a href="#first-eigenvector-and-first-pc-score-image-2" id="toc-first-eigenvector-and-first-pc-score-image-2" class="nav-link" data-scroll-target="#first-eigenvector-and-first-pc-score-image-2">First Eigenvector and First PC Score (Image 2)</a></li>
-  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
+  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a>
+  <ul class="collapse">
+  <li><a href="#best-value-of-k-1" id="toc-best-value-of-k-1" class="nav-link" data-scroll-target="#best-value-of-k-1">Best Value of K</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#image-3" id="toc-image-3" class="nav-link" data-scroll-target="#image-3">Image 3</a>
   <ul class="collapse">
@@ -173,7 +179,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#plot-of-original-image-vs.-first-10-pca-approximations-image-3" id="toc-plot-of-original-image-vs.-first-10-pca-approximations-image-3" class="nav-link" data-scroll-target="#plot-of-original-image-vs.-first-10-pca-approximations-image-3">Plot Of Original Image vs.&nbsp;First 10 PCA Approximations (Image 3)</a></li>
   <li><a href="#plot-approximation-error-vs.-k-for-all-possible-k-image-3" id="toc-plot-approximation-error-vs.-k-for-all-possible-k-image-3" class="nav-link" data-scroll-target="#plot-approximation-error-vs.-k-for-all-possible-k-image-3">Plot Approximation Error vs.&nbsp;k For All Possible k (Image 3)</a></li>
   <li><a href="#first-eigenvector-and-first-pc-score-image-3" id="toc-first-eigenvector-and-first-pc-score-image-3" class="nav-link" data-scroll-target="#first-eigenvector-and-first-pc-score-image-3">First Eigenvector and First PC Score (Image 3)</a></li>
-  <li><a href="#interpretation-2" id="toc-interpretation-2" class="nav-link" data-scroll-target="#interpretation-2">Interpretation</a></li>
+  <li><a href="#interpretation-2" id="toc-interpretation-2" class="nav-link" data-scroll-target="#interpretation-2">Interpretation</a>
+  <ul class="collapse">
+  <li><a href="#best-value-of-k-2" id="toc-best-value-of-k-2" class="nav-link" data-scroll-target="#best-value-of-k-2"><strong>Best Value of K</strong></a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#image-4" id="toc-image-4" class="nav-link" data-scroll-target="#image-4">Image 4</a>
   <ul class="collapse">
@@ -181,7 +190,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#plot-of-original-image-vs.-first-10-pca-approximations-image-4" id="toc-plot-of-original-image-vs.-first-10-pca-approximations-image-4" class="nav-link" data-scroll-target="#plot-of-original-image-vs.-first-10-pca-approximations-image-4">Plot Of Original Image vs.&nbsp;First 10 PCA Approximations (Image 4)</a></li>
   <li><a href="#plot-approximation-error-vs.-k-for-all-possible-k-image-4" id="toc-plot-approximation-error-vs.-k-for-all-possible-k-image-4" class="nav-link" data-scroll-target="#plot-approximation-error-vs.-k-for-all-possible-k-image-4">Plot Approximation Error vs.&nbsp;k For All Possible k (Image 4)</a></li>
   <li><a href="#first-eigenvector-and-first-pc-score-image-4" id="toc-first-eigenvector-and-first-pc-score-image-4" class="nav-link" data-scroll-target="#first-eigenvector-and-first-pc-score-image-4">First Eigenvector and First PC Score (Image 4)</a></li>
-  <li><a href="#interpretation-3" id="toc-interpretation-3" class="nav-link" data-scroll-target="#interpretation-3">Interpretation</a></li>
+  <li><a href="#interpretation-3" id="toc-interpretation-3" class="nav-link" data-scroll-target="#interpretation-3">Interpretation</a>
+  <ul class="collapse">
+  <li><a href="#best-value-of-k-3" id="toc-best-value-of-k-3" class="nav-link" data-scroll-target="#best-value-of-k-3"><strong>Best Value of K</strong></a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -347,11 +359,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
-<p>I think k = 6 provides a sufficiently good approximation of the original image. At k=6, the important features of the image are clearly visible, and increasing k further provides relatively little visual improvement.</p>
+<p><em>The first eigenvector captures the strongest changes in brightness across the width of the image. For most of the columns, the eigenvector remains fairly stable with only small fluctuations, which corresponds to the relatively uniform gray portions of the image. The sharp change toward the right side corresponds to the bright vertical feature, showing that this boundary contributes strongly to the first principal component.</em></p>
+<p><em>The first PC scores describe how strongly this horizontal pattern appears at each row of the image. Because the scores remain fairly consistent through much of the image, the dominant pattern captured by the first eigenvector is present across most of its height. The smaller variations in the scores reflect the noise and minor intensity differences between rows.</em></p>
+<p><em>The approximation error decreases as k increases because each additional principal component allows the reconstruction to capture more of the original image. The error decreases quickly for the first few components and then begins to level off, showing diminishing returns as k increases. This is consistent with the image being relatively simple, since only a small number of components are needed to capture most of its structure.</em></p>
+<section id="best-value-of-k" class="level3">
+<h3 class="anchored" data-anchor-id="best-value-of-k">Best Value of K</h3>
+<p><em>I think k=6 provides a sufficiently good approximation. Most of the important structure is already recovered by this point, including the major brightness regions and their boundaries. Beyond k=6, additional components mostly recover smaller variations and noise, so the visual improvement becomes less significant.</em></p>
 </section>
 </section>
-<section id="image-2" class="level1">
-<h1>Image 2</h1>
+</section>
+<section id="section" class="level1">
+<h1></h1>
+<p>Image 2</p>
 <section id="reading-in-image-image-2" class="level2">
 <h2 class="anchored" data-anchor-id="reading-in-image-image-2">Reading In Image (Image 2)</h2>
 <div class="cell">
@@ -461,11 +480,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.*</p>
+<p><em>The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.</em></p>
 </section>
 <section id="interpretation-1" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation-1">Interpretation</h2>
-<p><em>I think</em> k=5 <em>provides a sufficiently good approximation of the original image. At</em> k=5<em>, the important features of the image are clearly visible, and increasing</em> k <em>further provides relatively little visual improvement.</em></p>
+<p><em>The first eigenvector changes gradually across the columns, indicating that the dominant component is capturing a broad change in brightness across the width of the image rather than a single sharp boundary. The changing magnitude of the eigenvector weights shows that some horizontal positions contribute more strongly to this overall intensity pattern.</em></p>
+<p><em>The first PC scores show how the strength of that pattern changes from the top of the image to the bottom. The sharper changes in the score plot correspond to rows where the image contains stronger horizontal changes or boundaries. In contrast, smoother portions of the score curve correspond to regions where the image changes more gradually.</em></p>
+<p><em>Image 2’s error decreases rapidly at low values of k, indicating that the first few principal components capture much of the structure in the original image. As k increases, the error continues to decrease but at a slower rate. This suggests that later components primarily capture smaller variations rather than the dominant visual patterns.</em></p>
+<section id="best-value-of-k-1" class="level3">
+<h3 class="anchored" data-anchor-id="best-value-of-k-1">Best Value of K</h3>
+<p><em>I think k=5 provides a sufficiently good approximation. The first several components recover the dominant gradient and major structures of the image, while later components mostly add smaller details. The relatively small visual improvement after k=5 suggests that the first five components contain most of the structure necessary for a recognizable reconstruction.</em></p>
+</section>
 </section>
 </section>
 <section id="image-3" class="level1">
@@ -583,7 +608,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="interpretation-2" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation-2">Interpretation</h2>
-<p><em>I think k=30 provides a sufficiently good approximation of the original image. At k=30, the important features of the image are clearly visible, and increasing k further provides relatively little additional reduction in approximation error.</em></p>
+<p><em>The first eigenvector shows how different horizontal positions contribute to the dominant brightness pattern of the image. The substantial variation across the eigenvector reflects the greater complexity of this image compared with Images 1 and 2. Regions where the eigenvector changes sharply correspond to transitions between the lighter background and darker portions of the dog, while smoother sections correspond to areas with more consistent intensity.</em></p>
+<p><em>The first PC scores show how strongly this dominant horizontal pattern occurs at different vertical positions. Larger changes in the scores occur in rows containing more of the dog’s body and other high-contrast features. Rows containing mostly background produce a different and generally more uniform response. Together, the eigenvector and score plots show that the first component captures broad separation between the subject and background, but cannot represent all of the dog’s finer details by itself.</em></p>
+<p>The approximation error decreases more gradually for Image 3 than for the simpler images. This makes sense because the image contains more complex structure, including the shape of the dog, edges, texture, and variation in brightness. Consequently, more principal components are needed before the error becomes relatively small. Around k=30, the curve begins to show diminishing returns, supporting the use of a higher-rank approximation for this image.</p>
+<section id="best-value-of-k-2" class="level3">
+<h3 class="anchored" data-anchor-id="best-value-of-k-2"><strong>Best Value of K</strong></h3>
+<p><em>I think k=30 provides a sufficiently good approximation. Unlike the simpler first two images, this image contains considerably more texture, edges, and fine detail, so substantially more components are required. By approximately k=30, the dog and the important features of the image are clearly represented, while further increases in k provide progressively smaller improvements in reconstruction error and visual quality.</em></p>
+</section>
 </section>
 </section>
 <section id="image-4" class="level1">
@@ -701,9 +732,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="interpretation-3" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation-3">Interpretation</h2>
-<p><em>I think k=25 provides a sufficiently good approximation of the original image. The error plot begins to level off around this k-value, indicating that increasing k beyond this point produces progressively smaller reductions in approximation error.</em></p>
+<p><em>The first eigenvector captures the dominant changes in brightness across the width of the image. The</em> <em>noticeable peaks and changes in the eigenvector correspond to horizontal positions containing stronger transitions between light and dark regions. This indicates that the first component is primarily representing the image’s broad intensity structure rather than its smaller details.</em></p>
+<p><em>The first PC scores show where this brightness pattern is strongest vertically. Large changes in the score curve correspond to rows containing noticeable transitions in the image, while smoother portions indicate rows with more consistent intensity. Because the original image contains gradual and blurred transitions, the first component captures much of its broad structure, while additional components are needed to reconstruct the smaller variations.</em></p>
+<p><em>The approximation error decreases substantially as the first principal components are added and then decreases more gradually as k becomes larger. This indicates that the early components capture the major brightness patterns, while later components account for increasingly small details. Around k=25, the error curve is noticeably flatter, so adding additional components produces progressively smaller improvements in the reconstruction.</em></p>
+<section id="best-value-of-k-3" class="level3">
+<h3 class="anchored" data-anchor-id="best-value-of-k-3"><strong>Best Value of K</strong></h3>
+<p><em>I think k=25 provides a sufficiently good approximation. At this rank, the major light and dark regions are preserved and the reconstructed image is visually close to the original. The error curve also begins to flatten around this range, indicating diminishing returns: additional components reduce the error, but each contributes less improvement than the earlier components.</em></p>
 
 
+</section>
 </section>
 </section>
 

@@ -125,9 +125,18 @@ plot(
 
 ## Interpretation
 
-I think k = 6 provides a sufficiently good approximation of the original image. At k=6, the important features of the image are clearly visible, and increasing k further provides relatively little visual improvement.
+*The first eigenvector captures the strongest changes in brightness across the width of the image. For most of the columns, the eigenvector remains fairly stable with only small fluctuations, which corresponds to the relatively uniform gray portions of the image. The sharp change toward the right side corresponds to the bright vertical feature, showing that this boundary contributes strongly to the first principal component.*
 
-# Image 2
+*The first PC scores describe how strongly this horizontal pattern appears at each row of the image. Because the scores remain fairly consistent through much of the image, the dominant pattern captured by the first eigenvector is present across most of its height. The smaller variations in the scores reflect the noise and minor intensity differences between rows.*
+
+*The approximation error decreases as k increases because each additional principal component allows the reconstruction to capture more of the original image. The error decreases quickly for the first few components and then begins to level off, showing diminishing returns as k increases. This is consistent with the image being relatively simple, since only a small number of components are needed to capture most of its structure.*
+
+### Best Value of K
+
+*I think k=6 provides a sufficiently good approximation. Most of the important structure is already recovered by this point, including the major brightness regions and their boundaries. Beyond k=6, additional components mostly recover smaller variations and noise, so the visual improvement becomes less significant.*
+
+# 
+Image 2
 
 ## Reading In Image (Image 2)
 
@@ -219,11 +228,19 @@ plot(
 )
 ```
 
-\*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.\*
+*The first eigenvector represents the dominant pattern across the columns of the image. Each value describes how strongly a particular column contributes to the first principal component. The first PC scores represent how strongly that pattern is expressed in each row of the image. Together, the first eigenvector and first PC scores produce the rank-1 approximation of the image.*
 
 ## Interpretation
 
-*I think* k=5 *provides a sufficiently good approximation of the original image. At* k=5*, the important features of the image are clearly visible, and increasing* k *further provides relatively little visual improvement.*
+*The first eigenvector changes gradually across the columns, indicating that the dominant component is capturing a broad change in brightness across the width of the image rather than a single sharp boundary. The changing magnitude of the eigenvector weights shows that some horizontal positions contribute more strongly to this overall intensity pattern.*
+
+*The first PC scores show how the strength of that pattern changes from the top of the image to the bottom. The sharper changes in the score plot correspond to rows where the image contains stronger horizontal changes or boundaries. In contrast, smoother portions of the score curve correspond to regions where the image changes more gradually.*
+
+*Image 2's error decreases rapidly at low values of k, indicating that the first few principal components capture much of the structure in the original image. As k increases, the error continues to decrease but at a slower rate. This suggests that later components primarily capture smaller variations rather than the dominant visual patterns.*
+
+### Best Value of K
+
+*I think k=5 provides a sufficiently good approximation. The first several components recover the dominant gradient and major structures of the image, while later components mostly add smaller details. The relatively small visual improvement after k=5 suggests that the first five components contain most of the structure necessary for a recognizable reconstruction.*
 
 # Image 3
 
@@ -321,7 +338,15 @@ plot(
 
 ## Interpretation
 
-*I think k=30 provides a sufficiently good approximation of the original image. At k=30, the important features of the image are clearly visible, and increasing k further provides relatively little additional reduction in approximation error.*
+*The first eigenvector shows how different horizontal positions contribute to the dominant brightness pattern of the image. The substantial variation across the eigenvector reflects the greater complexity of this image compared with Images 1 and 2. Regions where the eigenvector changes sharply correspond to transitions between the lighter background and darker portions of the dog, while smoother sections correspond to areas with more consistent intensity.*
+
+*The first PC scores show how strongly this dominant horizontal pattern occurs at different vertical positions. Larger changes in the scores occur in rows containing more of the dog’s body and other high-contrast features. Rows containing mostly background produce a different and generally more uniform response. Together, the eigenvector and score plots show that the first component captures broad separation between the subject and background, but cannot represent all of the dog’s finer details by itself.*
+
+The approximation error decreases more gradually for Image 3 than for the simpler images. This makes sense because the image contains more complex structure, including the shape of the dog, edges, texture, and variation in brightness. Consequently, more principal components are needed before the error becomes relatively small. Around k=30, the curve begins to show diminishing returns, supporting the use of a higher-rank approximation for this image.
+
+### **Best Value of K**
+
+*I think k=30 provides a sufficiently good approximation. Unlike the simpler first two images, this image contains considerably more texture, edges, and fine detail, so substantially more components are required. By approximately k=30, the dog and the important features of the image are clearly represented, while further increases in k provide progressively smaller improvements in reconstruction error and visual quality.*
 
 # Image 4
 
@@ -419,4 +444,12 @@ plot(
 
 ## Interpretation
 
-*I think k=25 provides a sufficiently good approximation of the original image. The error plot begins to level off around this k-value, indicating that increasing k beyond this point produces progressively smaller reductions in approximation error.*
+*The first eigenvector captures the dominant changes in brightness across the width of the image. The* *noticeable peaks and changes in the eigenvector correspond to horizontal positions containing stronger transitions between light and dark regions. This indicates that the first component is primarily representing the image’s broad intensity structure rather than its smaller details.*
+
+*The first PC scores show where this brightness pattern is strongest vertically. Large changes in the score curve correspond to rows containing noticeable transitions in the image, while smoother portions indicate rows with more consistent intensity. Because the original image contains gradual and blurred transitions, the first component captures much of its broad structure, while additional components are needed to reconstruct the smaller variations.*
+
+*The approximation error decreases substantially as the first principal components are added and then decreases more gradually as k becomes larger. This indicates that the early components capture the major brightness patterns, while later components account for increasingly small details. Around k=25, the error curve is noticeably flatter, so adding additional components produces progressively smaller improvements in the reconstruction.*
+
+### **Best Value of K**
+
+*I think k=25 provides a sufficiently good approximation. At this rank, the major light and dark regions are preserved and the reconstructed image is visually close to the original. The error curve also begins to flatten around this range, indicating diminishing returns: additional components reduce the error, but each contributes less improvement than the earlier components.*
