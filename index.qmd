@@ -135,8 +135,7 @@ plot(
 
 *I think k=6 provides a sufficiently good approximation. Most of the important structure is already recovered by this point, including the major brightness regions and their boundaries. Beyond k=6, additional components mostly recover smaller variations and noise, so the visual improvement becomes less significant.*
 
-# 
-Image 2
+# Image 2
 
 ## Reading In Image (Image 2)
 
